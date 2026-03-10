@@ -2,6 +2,7 @@ SHELL := /usr/bin/env bash
 
 GHERKIN_LANGUAGES_JSON = src/gherkin/gherkin-languages.json
 GHERKIN_PARSER = src/gherkin/parser.py
+STOCHASTIC_PARSER = src/gherkin/stochastic_parser_base.py
 GHERKIN_RAZOR = gherkin-python.razor
 SOURCE_FILES = $(shell find . -name "*.py" | grep -v $(GHERKIN_PARSER))
 
@@ -23,7 +24,7 @@ help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make <target>\n\nWhere <target> is one of:\n"} /^[$$()% a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 .PHONY: help
 
-generate: $(GHERKIN_PARSER) ## Generate gherkin parser files
+generate: $(GHERKIN_PARSER) $(STOCHASTIC_PARSER) ## Generate gherkin parser files
 .PHONY: generate
 
 clean-generate: ## Remove generated Gherkin parser files ## Generate gherkin parser files
@@ -54,6 +55,9 @@ acceptance: .built $(TOKENS) $(ASTS) $(PICKLES) $(ERRORS) $(SOURCES) ## Build ac
 
 $(GHERKIN_PARSER): $(GHERKIN_RAZOR) ../gherkin.berp
 	berp -g ../gherkin.berp -t $< -o $@ --noBOM
+
+$(STOCHASTIC_PARSER): $(GHERKIN_RAZOR) ../stochastic.berp
+	berp -g ../stochastic.berp -t $< -o $@ --noBOM
 
 $(GHERKIN_LANGUAGES_JSON):
 	cp ../gherkin-languages.json $@

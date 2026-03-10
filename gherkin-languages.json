@@ -834,6 +834,12 @@
     "when": [
       "* ",
       "When "
+    ],
+    "stochasticFeature": [
+      "Stochastic Feature"
+    ],
+    "stochasticScenario": [
+      "Stochastic Scenario"
     ]
   },
   "en-Scouse": {

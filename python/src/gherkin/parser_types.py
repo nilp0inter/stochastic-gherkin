@@ -44,6 +44,12 @@ class DocString(TypedDict):
     mediaType: NotRequired[str]
 
 
+class EmbeddedBehavior(TypedDict):
+    location: Location
+    background: NotRequired["Background"]
+    scenarios: list["Scenario"]
+
+
 class Step(TypedDict):
     id: str
     location: Location
@@ -52,6 +58,7 @@ class Step(TypedDict):
     keywordType: str
     dataTable: NotRequired[DataTable]
     docString: NotRequired[DocString]
+    embeddedBehavior: NotRequired[EmbeddedBehavior]
 
 
 class Background(TypedDict):

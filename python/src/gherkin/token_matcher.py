@@ -259,6 +259,15 @@ class TokenMatcher:
             reverse=True,
         )
 
+    def match_StochasticFeatureLine(self, token: Token) -> bool:
+        return False
+
+    def match_StochasticScenarioLine(self, token: Token) -> bool:
+        return False
+
+    def match_EmbeddedBehaviorLine(self, token: Token) -> bool:
+        return False
+
     def _unescaped_docstring(self, text: str) -> str:
         if self._active_doc_string_separator == '"""':
             return text.replace('\\"\\"\\"', '"""')

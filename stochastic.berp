@@ -1,0 +1,27 @@
+[
+	Tokens -> #Empty,#Comment,#TagLine,#StochasticFeatureLine,#StochasticScenarioLine,#StepLine,#DocStringSeparator,#TableRow,#Language,#EmbeddedBehaviorLine
+	IgnoredTokens -> #Comment,#Empty
+	ClassName -> StochasticParserBase
+	Namespace -> StochasticGherkin
+]
+
+StochasticGherkinDocument! := StochasticFeature?
+
+StochasticFeature! := StochasticFeatureHeader StochasticScenarioDefinition*
+StochasticFeatureHeader! := #Language? Tags? #StochasticFeatureLine DescriptionHelper
+
+StochasticScenarioDefinition! [#Empty|#Comment|#TagLine->#StochasticScenarioLine]:= Tags? StochasticScenario
+StochasticScenario! := #StochasticScenarioLine DescriptionHelper StochasticStep*
+
+StochasticStep! := #StepLine StochasticStepArg?
+StochasticStepArg := (DataTable | DocString | EmbeddedBehavior)
+
+EmbeddedBehavior! := #EmbeddedBehaviorLine+
+
+DataTable! := #TableRow+
+DocString! := #DocStringSeparator #Other* #DocStringSeparator
+
+Tags! := #TagLine+
+
+DescriptionHelper := #Empty* Description?
+Description! := (#Other | #Comment)+

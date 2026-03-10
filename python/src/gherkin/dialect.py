@@ -22,7 +22,10 @@ DialectSpec = TypedDict(
         "scenarioOutline": list[str],
         "then": list[str],
         "when": list[str],
+        "stochasticFeature": list[str],
+        "stochasticScenario": list[str],
     },
+    total=False,
 )
 
 with DIALECT_FILE_PATH.open(encoding="utf-8") as file:
@@ -80,3 +83,11 @@ class Dialect:
     @property
     def but_keywords(self) -> list[str]:
         return self.spec["but"]
+
+    @property
+    def stochastic_feature_keywords(self) -> list[str]:
+        return self.spec.get("stochasticFeature", [])
+
+    @property
+    def stochastic_scenario_keywords(self) -> list[str]:
+        return self.spec.get("stochasticScenario", [])
