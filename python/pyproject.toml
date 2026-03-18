@@ -3,7 +3,7 @@ requires = ["uv_build>=0.10.0,<0.11.0"]
 build-backend = "uv_build"
 
 [project]
-name = "gherkin-official"
+name = "stochastic-gherkin"
 version = "39.0.0"
 description = "Gherkin parser (official, by Cucumber team)"
 readme = "README.md"
